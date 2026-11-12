@@ -15,7 +15,6 @@ def load_tasks():
 def save_tasks(tasks):
     with open("tasks.json", "w") as file:
         json.dump(tasks, file, indent=4)
-        print("Your task was saved")
 
 
 def add_a_task():
@@ -34,6 +33,7 @@ def view_tasks():
         return
     else:
         print ("Tasks")
+        print ("")
         for number, task in enumerate(tasks, start=1):
             print(f"{number}. {task['name']}")
             print("")
@@ -48,6 +48,7 @@ def mark_task_as_completed():
         task_com = int(input("Enter task no: "))
         if not 1 <= task_com <= len(tasks):
             print("No task with this no")
+            print("")
             return
         index = task_com - 1
         tasks[index]["completed"] = True
@@ -62,12 +63,14 @@ def mark_task_as_completed():
 def delete_a_task():
     if not tasks:
             print ("No tasks yet")
+            print("")
             return
             
     try:
         dele = int(input("Enter task no: "))
         if not 1 <= dele <= len(tasks):
             print("No task with this no")
+            print("")
             return
         index = dele - 1
         tasks.pop(index)
@@ -101,9 +104,11 @@ while True:
     print ("3. Mark task as completed")
     print ("4. Delete a task")
     print ("5. Exit")
+    print("")
 
 
     choice = input("Choose an option: ")
+    print("")
 
     if choice in actions:
         actions[choice]()
@@ -112,7 +117,8 @@ while True:
         print("Goodbye!")
         break
     else:
-        print("Invalid choice") 
+        print("Invalid choice")
+        print("")
     
 
     

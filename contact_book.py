@@ -1,5 +1,21 @@
 
 
+import json
+import os
+
+
+def load_contacts():
+    if os.path.exists("contacts.json"):
+        with open("contacts.json", "r") as file:
+            return json.load(file)
+    return []
+
+
+def save_contacts(contacts):
+    with open("contacts.json", "w") as file:
+        json.dump(contacts, file, indent=4)
+        
+
 def add_contact():
     contact_name = input("Enter contact name: ").lower()
     contact_phone_number = input("Enter contact phone number: ")
@@ -41,7 +57,7 @@ def edit_contact():
               new_email = input("New Email: ")
 
               if new_name:
-                contact["name"] = new_name
+                contact["name"] = new_name.lower()
               if new_phone:
                    contact["phone_num"] = new_phone
               if new_email:
@@ -73,9 +89,10 @@ def view_all_contacts():
              print(f"Phone: {contact['phone_num']}")
              print(f"Email: {contact['Email']}")
              print()
+         else:
+              print ("No contacts yet")
+              print ("")
          
-
-
 
 actions = {
             "1": add_contact,
@@ -86,7 +103,7 @@ actions = {
 }
 
 
-contacts = []
+contacts = load_contacts()
 
 while True:
 
@@ -101,12 +118,12 @@ while True:
     print("")
 
 
-
     choice = input("Choose an option: ")
     print("")
 
     if choice in actions:
          actions[choice]()
+         save_contacts(contacts)
     elif choice == "6":
         print("Goodbye")
         break
